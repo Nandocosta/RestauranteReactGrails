@@ -2,7 +2,7 @@
 grails:
     profile: react
     codegen:
-        defaultPackage: restauranterectgrais
+        defaultPackage: restaurantereactgrails
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
@@ -85,6 +85,88 @@ grails:
     cors:
         enabled: true
 ---
+grails:
+    plugin:
+        springsecurity:
+            rest:
+                token:
+                    storage:
+                        jwt:
+                            secret: '9e548c06c9bc1fae358e0bb166097c47cafc9e8be05bca289409ec77e0836964'
+                            expiration: 7200
+            userLookup:
+                userDomainClassName: comum.Usuario
+                authorityJoinClassName: comum.UsuarioPermissao
+            authority:
+                className: comum.Permisao
+            securityConfigType:  Requestmap
+            useSecurityEventListener: true
+            requestMap:
+                className: comum.RequestMap
+            filterChain:
+                chainMap:
+                    -
+                        pattern: /assets/**
+                        filters: none
+                    -
+                        pattern: /**/js/**
+                        filters: none
+                    -
+                        pattern: /**/css/**
+                        filters: none
+                    -
+                        pattern: /**/images/**
+                        filters: none
+                    - # Stateless chain
+                        pattern: /api/**
+                        filters: JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter
+                    - # Traditional Chain
+                        pattern: /**
+                        filters: JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter
+                controllerAnnotations:
+                    staticRules:
+                        -
+                            pattern: /
+                            access:
+                                - permitAll
+                        -
+                            pattern: /error
+                            access:
+                                - permitAll
+                        -
+                            pattern: /index
+                            access:
+                                - permitAll
+                        -
+                            pattern: /index.gsp
+                            access:
+                                - permitAll
+                        -
+                            pattern: /shutdown
+                            access:
+                                - permitAll
+                        -
+                            pattern: /assets/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/js/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/css/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/images/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/favicon.ico/**
+                            access:
+                                - permitAll
+
+---
 hibernate:
     cache:
         queries: false
@@ -93,23 +175,24 @@ hibernate:
 dataSource:
     pooled: true
     jmxExport: true
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+    driverClassName: com.mysql.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL8Dialect
+    username: root
+    password:
 
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: update
+            url: jdbc:mysql://localhost/restaurante
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:mysql://localhost/restaurante
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:h2:./prodDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:mysql://localhost/restaurante
             properties:
                 jmxEnabled: true
                 initialSize: 5
