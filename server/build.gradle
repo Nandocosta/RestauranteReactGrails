@@ -42,6 +42,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-logging"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation 'org.springframework.boot:spring-boot-actuator-autoconfigure:2.4.12'
     implementation "org.grails:grails-core"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-tomcat"
@@ -64,6 +65,7 @@ dependencies {
     profile "org.grails.profiles:react"
     runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
     runtimeOnly "com.h2database:h2"
+    runtimeOnly "mysql:mysql-connector-java:5.1.36"
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
     runtimeOnly "javax.xml.bind:jaxb-api:2.3.1"
     testImplementation "io.micronaut:micronaut-inject-groovy"
