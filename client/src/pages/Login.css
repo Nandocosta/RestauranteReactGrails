@@ -1,0 +1,13 @@
+.div-form {
+    display: flex;
+    max-width: 700px;
+    height: 300px ;
+    margin: 80px auto;
+    border: 2px solid #0001;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.site-form-item-icon{
+    width: 30px;
+}
