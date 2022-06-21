@@ -1,11 +1,12 @@
 import React from 'react';
-import Login from "./pages/Login";
+import RoutesApp from "./routes";
+import {AuthProvider} from "./contexts/Auth";
 
 function App(){
     return (
-        <div>
-            <Login />
-        </div>
+        <AuthProvider>
+            <RoutesApp />
+        </AuthProvider>
     )
 }
 export default App;

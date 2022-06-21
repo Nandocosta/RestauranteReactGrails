@@ -11,3 +11,9 @@
 .site-form-item-icon{
     width: 30px;
 }
+.item-buttom{
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+}
