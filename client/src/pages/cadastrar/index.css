@@ -8,8 +8,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.site-form-item-icon{
+    width: 30px;
+}
 .item-buttom{
     margin-top: 10px;
     padding-left: 30px;
-
 }

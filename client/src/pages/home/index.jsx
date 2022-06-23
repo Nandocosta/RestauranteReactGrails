@@ -7,7 +7,7 @@ function Home (){
     return(
         <>
             <div className="container-home">
-                <Container />
+                <h1>Produtos</h1>
             </div>
         </>
     )

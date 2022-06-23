@@ -1,9 +1,10 @@
 import React from "react";
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 import './Login.css'
+import {Link} from "react-router-dom";
 
 const Login = () => {
     const onFinish = (values) => {
@@ -14,6 +15,7 @@ const Login = () => {
         <>
             <div className="div-form">
                 <Form
+                    layout='vertical'
                     name="normal_login"
                     className="login-form"
                     initialValues={{
@@ -32,6 +34,7 @@ const Login = () => {
                     >
                         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
+                    <br/>
                     <Form.Item
                         name="password"
                         rules={[
@@ -44,28 +47,17 @@ const Login = () => {
                         <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
-                            placeholder="Password"
+                            placeholder="Senha"
                         />
                     </Form.Item>
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
-
-                        <a className="login-form-forgot" href="src/pages/login/Login.jsx">
-                            Forgot password
-                        </a>
-                    </Form.Item>
-
                     <Form.Item className="item-buttom">
                         <Button type="primary" htmlType="submit" className="login-form-button">
-                            Log in
+                            Login
                         </Button>
                         <br/>
-                        <span>-</span>Ou<span>-</span>
-                        <br/>
-                        <a href="src/pages/login/Login.jsx">register now!</a>
+                        <a><Link to='/cadastrar' className='cadastro'> Cadastre-se</Link></a>
                     </Form.Item>
+
                 </Form>
             </div>
         </>
