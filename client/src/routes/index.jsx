@@ -4,13 +4,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from "../pages/home";
 import Login from "../pages/login/Login";
 import Cadastrar from "../pages/cadastrar";
-import useAuth from "../hooks/useAuth";
 
 const Private = ({ Item }) => {
-    const {signed} = useAuth();
+    const { signed } = null;
 
-    return signed > 0 ? <Item /> : <signed/>;
-}
+    return signed > 0 ? <Item /> : <login />;
+};
 
 const RoutesApp = () => {
     return (

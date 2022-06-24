@@ -1,13 +1,16 @@
 import React from 'react'
-import Container from "../../components/input";
 
 import './index.css'
+import {Button} from "antd";
 
 function Home (){
+
     return(
         <>
             <div className="container-home">
-                <h1>Produtos</h1>
+                <Button Text="Sair" onClick="">
+                    Sair
+                </Button>
             </div>
         </>
     )
