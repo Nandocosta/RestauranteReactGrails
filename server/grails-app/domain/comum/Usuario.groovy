@@ -1,6 +1,5 @@
 package comum
 
-
 class Usuario implements Serializable {
 
     transient springSecurityService

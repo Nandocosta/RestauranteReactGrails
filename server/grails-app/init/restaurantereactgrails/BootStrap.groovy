@@ -24,7 +24,7 @@ class BootStrap {
             [ url: '/j_spring_security_switch_user',  configAttribute: 'ROLE_SWITCH_USER,isFullyAuthenticated()' ],
     ]
 
-    def init = {
+    def init = {  servletContext ->
         addTestUser()
     }
 
@@ -56,11 +56,11 @@ class BootStrap {
 
         if (UsuarioPermissao.findByUsuarioAndPermissao(administrador, admin) == null)
         {
-            new UsuarioPermissao(Usuario: administrador, permissao: admin).save(flush:true)
+            new UsuarioPermissao(usuario: administrador, permissao: admin).save(flush:true)
         }
         if (UsuarioPermissao.findByUsuarioAndPermissao(user, usuario) == null)
         {
-            new UsuarioPermissao(Usuario: user, permissao: usuario).save(flush:true)
+            new UsuarioPermissao(usuario: user, permissao: usuario).save(flush:true)
         }
 
         for (String url in [
