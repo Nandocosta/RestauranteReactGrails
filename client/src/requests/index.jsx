@@ -56,7 +56,7 @@ const deleteRequest = ({ url, id, headers }) => {
     })
         .then( response => response.ok ? {success: true} : {error: true, cod: response.status })
         .catch(error => {
-            return { success: false, message: error };;
+            return { success: false, message: error };
         });
     return response;
 }

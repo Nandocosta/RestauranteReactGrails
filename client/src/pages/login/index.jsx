@@ -3,7 +3,7 @@ import React from "react";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
-import './Login.css'
+import './index.css'
 import {Link} from "react-router-dom";
 
 const Login = () => {

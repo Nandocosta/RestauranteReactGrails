@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Home from "../pages/home";
-import Login from "../pages/login/Login";
+import Login from "../pages/login";
 import Cadastrar from "../pages/cadastrar";
 
 const Private = ({ Item }) => {
-    const { signed } = null;
+    const { signed } = {signed : true};
 
     return signed > 0 ? <Item /> : <login />;
 };
