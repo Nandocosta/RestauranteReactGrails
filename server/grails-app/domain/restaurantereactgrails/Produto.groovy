@@ -12,6 +12,7 @@ class Produto {
     static constraints = {
         nome nullable: false, blank:false
         preco min: new Double(0)
+        estoque nullable: true
     }
     static mapping = {
         discriminator column: "tipo", value: "GERAL"

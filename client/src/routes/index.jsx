@@ -7,7 +7,6 @@ import Cadastrar from "../pages/cadastrar";
 
 const Private = ({ Item }) => {
     const { signed } = {signed : true};
-
     return signed > 0 ? <Item /> : <login />;
 };
 

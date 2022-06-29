@@ -1,0 +1,7 @@
+import restaurantereactgrails.Produto
+
+model {
+    Produto produto
+}
+
+json g.render(produto, [resolveTemplate: false])
