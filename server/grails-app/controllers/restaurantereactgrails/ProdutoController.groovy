@@ -1,7 +1,10 @@
 package restaurantereactgrails
 
 import grails.converters.JSON
+import grails.gorm.transactions.Transactional
+import grails.validation.ValidationException
 
+@Transactional
 class ProdutoController {
 	static responseFormats = ['json', 'xml']
 
@@ -22,8 +25,20 @@ class ProdutoController {
         produto.validate()
         println(produto.errors)
         produto.save(failOnError: true)
-        println("teste")
 
+        respond "ok"
+    }
+
+    @Transactional
+    def update() {
+        params.putAll(getParametros())
+        Produto produto = Produto.get(params.id)
+        String nome = params.nome
+        Double preco = params.double("preco")
+        produto.nome = nome
+        produto.preco = preco
+        produto.validate()
+        produto.save(flush: true)
         respond "ok"
     }
     Map getParametros() {
