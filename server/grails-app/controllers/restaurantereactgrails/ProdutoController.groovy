@@ -1,6 +1,7 @@
 package restaurantereactgrails
 
 import grails.converters.JSON
+import static org.springframework.http.HttpStatus.NOT_FOUND
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
 
@@ -15,6 +16,7 @@ class ProdutoController {
         respond model
     }
 
+    @Transactional
     def save(){
         params.putAll(getParametros())
         String nome = params.nome
@@ -27,6 +29,18 @@ class ProdutoController {
         produto.save(failOnError: true)
 
         respond "ok"
+    }
+
+    @Transactional
+    def show() {
+        Produto produto = Produto.get(params.id)
+        if(produto == null){
+            render status: NOT_FOUND
+            return
+        }else{
+            respond produto
+        }
+
     }
 
     @Transactional
