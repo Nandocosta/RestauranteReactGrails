@@ -55,8 +55,20 @@ class ProdutoController {
         produto.save(flush: true)
         respond "ok"
     }
+    @Transactional
+    def delete() {
+        Produto produto = Produto.get(params.id)
+        if(produto == null){
+            render status: NOT_FOUND
+            return
+        }else {
+            produto.delete(flush:true)
+        }
+
+    }
     Map getParametros() {
         def parameters = JSON.parse(request.getReader()) as Map
         return parameters
     }
+
 }
