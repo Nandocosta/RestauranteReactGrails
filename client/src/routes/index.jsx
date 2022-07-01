@@ -4,10 +4,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Cadastrar from "../pages/cadastrar";
+import Auth from "../security/Auth";
+
 
 const Private = ({ Item }) => {
-    const { signed } = {signed : true};
-    return signed > 0 ? <Item /> : <login />;
+    const token = Auth.getToken()
+    return token ? <Item /> : <login />;
 };
 
 const RoutesApp = () => {
@@ -16,9 +18,9 @@ const RoutesApp = () => {
            <Fragment>
                <Routes>
                    <Route exact path="/home" element={<Private Item={Home} />} />
-                   <Route path="/" element={<Login />} />
+                   {/*<Route path="/login" element={<Login />} />*/}
                    <Route exact path="/cadastrar" element={<Cadastrar />} />
-                   <Route path="*" element={<Login />} />
+                   {/*<Route path="*" element={<Login />} />*/}
                </Routes>
            </Fragment>
        </BrowserRouter>

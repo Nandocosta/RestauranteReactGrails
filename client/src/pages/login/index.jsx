@@ -1,14 +1,29 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
 import './index.css'
 import {Link} from "react-router-dom";
+import Api from "../../services/Api";
+import Auth from "../../security/Auth"
+
 
 const Login = () => {
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+
+    // const {login } = useContext (AuthContext);
+
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values)
+        const {username, password } = values
+
+        Api.post("login", {username, password} ).then( response => {
+            const { data } = response
+            Auth.setAuth(data)
+            window.location.assign('/')
+        })
     };
 
     return (
@@ -32,7 +47,11 @@ const Login = () => {
                             },
                         ]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        <Input
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder="Username"
+                            onChange={ e => setUsername(e.target.value)} value={username}
+                        />
                     </Form.Item>
                     <br/>
                     <Form.Item
@@ -48,6 +67,7 @@ const Login = () => {
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Senha"
+                            onChange={ e => setPassword(e.target.value)} value={password}
                         />
                     </Form.Item>
                     <Form.Item className="item-buttom">
@@ -57,11 +77,9 @@ const Login = () => {
                         <br/>
                         <a><Link to='/cadastrar' className='cadastro'> Cadastre-se</Link></a>
                     </Form.Item>
-
                 </Form>
             </div>
         </>
-
     );
 };
 export default Login;
