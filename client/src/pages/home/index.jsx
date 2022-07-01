@@ -5,13 +5,21 @@ import {Button} from "antd";
 import {useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Api from "../../services/Api";
+import Auth from "../../security/Auth";
 
 function Home (){
     // const { signout } = useAuth();
     const navigate = useNavigate();
 
     useEffect(()=>{
-        Api.get("produto").then(console.log).catch(console.log)
+        Api
+            .get("produto",{
+                headers: {
+                    'Authorization': `Bearer ${Auth.getToken()}`
+                }
+            })
+            .then(console.log)
+            .catch(console.log)
     })
 
     return(

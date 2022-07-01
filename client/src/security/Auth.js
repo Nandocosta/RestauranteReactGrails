@@ -6,7 +6,7 @@ const Auth = {
         let data = localStorage.getItem("auth");
         data = data ? JSON.parse(data) : null;
         return data ? data.access_token : null;
-    },
+    }
 }
 
 export default Auth
