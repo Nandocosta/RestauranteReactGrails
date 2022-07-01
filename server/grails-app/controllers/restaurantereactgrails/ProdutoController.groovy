@@ -63,6 +63,7 @@ class ProdutoController {
             return
         }else {
             produto.delete(flush:true)
+            respond"ok"
         }
 
     }
