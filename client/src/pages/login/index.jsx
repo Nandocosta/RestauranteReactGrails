@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, { useState} from "react";
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
@@ -75,7 +75,7 @@ const Login = () => {
                             Login
                         </Button>
                         <br/>
-                        <a><Link to='/cadastrar' className='cadastro'> Cadastre-se</Link></a>
+                        <Link to='/cadastrar' className='cadastro'> Cadastre-se</Link>
                     </Form.Item>
                 </Form>
             </div>

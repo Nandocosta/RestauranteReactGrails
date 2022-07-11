@@ -1,4 +1,3 @@
-import axios from "axios";
 
 const Auth = {
     setAuth: (data) => localStorage.auth = JSON.stringify(data),

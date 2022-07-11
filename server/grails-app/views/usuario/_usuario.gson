@@ -1,0 +1,9 @@
+import comum.Usuario
+
+model {
+    Usuario usuario
+}
+json {
+    id usuario.id
+    username usuario.username
+}

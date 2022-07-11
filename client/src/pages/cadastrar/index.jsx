@@ -70,7 +70,7 @@ const Cadastrar = () => {
                         <Button  className='Button-login'  type="primary" htmlType="submit">
                             Registrar
                         </Button><br/>
-                        <a><Link to='/login' >Já tenho uma conta? clique aqui</Link></a>
+                        <Link to='/login' >Já tenho uma conta? clique aqui</Link>
                     </Form.Item>
 
                 </Form>

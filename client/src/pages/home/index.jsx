@@ -2,14 +2,14 @@ import React, {useEffect} from 'react'
 
 import './index.css'
 import {Button} from "antd";
-import {useNavigate} from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+// import {useNavigate} from "react-router-dom";
+// import useAuth from "../../hooks/useAuth";
 import Api from "../../services/Api";
 import Auth from "../../security/Auth";
 
 function Home (){
     // const { signout } = useAuth();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(()=>{
         Api

@@ -8,12 +8,7 @@ import grails.gorm.transactions.Transactional
 class BootStrap {
 
     def listUrl = [
-            [ url: '/api/user', configAttribute: 'ROLE_ADMIN' ],
-            [ url: '/api/user/', configAttribute: 'ROLE_ADMIN' ],
-            [ url: '/api/user/save', configAttribute: 'ROLE_ADMIN' ],
-            [ url: '/api/user/update/**', configAttribute: 'ROLE_ADMIN' ],
-            [ url: '/api/user/save/', configAttribute: 'ROLE_ADMIN' ],
-            [ url: '/api/user/query', configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
+            [ url: '/api/usuario', configAttribute: 'ROLE_ADMIN' ],
             [ url: '/api/produto',    configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
             [ url: '/api/produto/',    configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
             [ url: '/api/produto/**',    configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
