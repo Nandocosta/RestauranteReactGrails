@@ -4,7 +4,8 @@ import comum.Permissao
 import comum.Usuario
 import comum.UsuarioPermissao
 import grails.gorm.transactions.Transactional
-import grails.rest.*
+import static org.springframework.http.HttpStatus.*
+
 import grails.converters.*
 import grails.validation.ValidationException
 
@@ -19,43 +20,66 @@ class UsuarioController {
     }
     @Transactional
     def save( ) {
-        params.putAll(JSON.parse(request.getReader()) as Map)
-        Usuario usu = Usuario.findByUsername(params.username)
-        Usuario user = new Usuario(
-                username: params.username,
-                password: params.password,
-                enabled: true,
-                accountExpired: false,
-                accountLocked: false,
-                passwordExpired: false
-        )
-
-        if (usu == null) {
+        params.putAll(getParametros())
+        Permissao permissao = Permissao.findByAuthority( params.permissao)
+        Usuario usuario =  Usuario.findByUsername( params.username)
+        if( permissao == null) {
+            respond status: BAD_REQUEST, message: "Rule not exists"
+            return
+        }
+        if( usuario == null ) {
             try {
-                Usuario.save(user)
-                if (user.hasErrors()) {
+                usuario = new Usuario(
+                        username: params.username,
+                        password: params.password,
+                        enabled: true,
+                        accountExpired: false,
+                        accountLocked: false,
+                        passwordExpired: false
+                )
+                usuario.save()
+                if (usuario.hasErrors()) {
                     transactionStatus.setRollbackOnly()
-                    respond user.errors
+                    respond usuario.errors
                     return
                 }
-                if (user.adm == true) {
-                    Permissao admin = Permissao.findByAuthority('ROLE_ADMIN')
-                    new UsuarioPermissao(user: user, role: admin).save(flush: true)
 
+                if (UsuarioPermissao.findByUsuarioAndPermissao(usuario, permissao) == null){
+                    new UsuarioPermissao(usuario: usuario, permissao: permissao).save(flush:true)
                 } else {
-                    Permissao user_comum = Permissao.findByAuthority('ROLE_USER')
-                    new UsuarioPermissao(user: user, role: user_comum).save(flush: true)
+                    respond status: 400, message: "User with this Rule has exists"
+                    return
                 }
+                respond status: 201, usuario: usuario
+                return
 
             } catch (ValidationException e) {
-                respond user.errors
+                respond usuario.errors
                 return
             }
         } else {
-            respond status: BAD_REQUEST, message: "Usuario já existe"
+            respond status: 400, message: "User has exists"
             return
         }
+    }
+    @Transactional
+    def buscarProdutoPorNome(){
 
-        respond user, [status: CREATED, view: "show"]
+    }
+
+    def show() {
+        params.putAll(getParametros())
+        Usuario usuario = Usuario.get(params.id)
+        if(usuario == null){
+            render status: NOT_FOUND
+            return
+        }else{
+            respond usuario
+        }
+
+    }
+    Map getParametros() {
+        def parameters = JSON.parse(request.getReader()) as Map
+        return parameters
     }
 }

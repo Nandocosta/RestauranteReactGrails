@@ -9,6 +9,8 @@ class BootStrap {
 
     def listUrl = [
             [ url: '/api/usuario', configAttribute: 'ROLE_ADMIN' ],
+            [ url: '/api/usuario/', configAttribute: 'ROLE_ADMIN' ],
+            [ url: '/api/usuario/**', configAttribute: 'ROLE_ADMIN' ],
             [ url: '/api/produto',    configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
             [ url: '/api/produto/',    configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
             [ url: '/api/produto/**',    configAttribute: 'ROLE_ADMIN, ROLE_USER' ],
