@@ -6,4 +6,5 @@ model {
 json {
     id usuario.id
     username usuario.username
+    permissoes g.render(template: "permissoes", collection: usuario.getAuthorities(), var: "permissao")
 }

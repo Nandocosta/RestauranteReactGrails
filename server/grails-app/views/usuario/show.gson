@@ -1,0 +1,8 @@
+import comum.Usuario
+
+model{
+    Usuario usuario
+}
+json{
+    usuario g.render(template:'usuario', model:[usuario: usuario])
+}

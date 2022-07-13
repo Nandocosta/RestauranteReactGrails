@@ -1,0 +1,8 @@
+import comum.Permissao
+
+model{
+    Permissao permissao
+}
+json{
+    nome permissao.Authority
+}

@@ -55,6 +55,7 @@ class ProdutoController {
         produto.save(flush: true)
         respond "ok"
     }
+
     @Transactional
     def delete() {
         Produto produto = Produto.get(params.id)

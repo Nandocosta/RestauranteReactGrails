@@ -24,7 +24,7 @@ class UsuarioController {
         Permissao permissao = Permissao.findByAuthority( params.permissao)
         Usuario usuario =  Usuario.findByUsername( params.username)
         if( permissao == null) {
-            respond status: BAD_REQUEST, message: "Rule not exists"
+            respond status: BAD_REQUEST, message: "Permissão não existe"
             return
         }
         if( usuario == null ) {
@@ -47,7 +47,7 @@ class UsuarioController {
                 if (UsuarioPermissao.findByUsuarioAndPermissao(usuario, permissao) == null){
                     new UsuarioPermissao(usuario: usuario, permissao: permissao).save(flush:true)
                 } else {
-                    respond status: 400, message: "User with this Rule has exists"
+                    respond status: 400, message: "Usuario com essa permissão já existe"
                     return
                 }
                 respond status: 201, usuario: usuario
@@ -58,25 +58,85 @@ class UsuarioController {
                 return
             }
         } else {
-            respond status: 400, message: "User has exists"
+            respond status: 400, message: "Usuario já existe"
             return
         }
     }
-    @Transactional
-    def buscarProdutoPorNome(){
-
-    }
 
     def show() {
-        params.putAll(getParametros())
         Usuario usuario = Usuario.get(params.id)
         if(usuario == null){
             render status: NOT_FOUND
             return
         }else{
-            respond usuario
+            def model = [:]
+            model.put("usuario", usuario)
+            respond model
+        }
+    }
+
+    @Transactional
+    def update(){
+        params.putAll(getParametros())
+
+        String username = params.username
+        String password = params.password
+        List permissoes = params.permissoes
+        List<Permissao> newPermissoes = []
+        permissoes?.each{
+            Permissao permissao = Permissao.findByAuthority(it)
+            if(permissao){
+                newPermissoes.add(permissao)
+            }
         }
 
+        Usuario usuario = Usuario.get(params.id)
+
+        if (usuario == null) {
+            render  status: NOT_FOUND
+            return
+        }
+        if (usuario.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond usuario.errors
+            return
+        }
+
+        usuario.username = username ?: usuario.username
+        usuario.password = password ?: usuario.password
+        usuario.authorities?.each{
+            if(!newPermissoes.contains(it)){
+                UsuarioPermissao.findByUsuarioAndPermissao(usuario, it).delete()
+            }
+        }
+
+        newPermissoes.each {
+            UsuarioPermissao usuarioPermissao = UsuarioPermissao.findByUsuarioAndPermissao(usuario, it)
+            if(!usuarioPermissao){
+                UsuarioPermissao newUsuarioPermissao = new UsuarioPermissao(usuario: usuario, permissao: it ).save(flush: true)
+            }
+        }
+
+        usuario.validate()
+        usuario.save(flush: true)
+        respond "ok"
+    }
+
+    @Transactional
+    def delete() {
+        Long id = Long.parseLong(params.id ?: null)
+        if (id) {
+            try {
+                Usuario usuario = Usuario.findById(id)
+                UsuarioPermissao.findByUsuario(usuario).delete()
+                usuario.delete()
+                render "Usuario deletado"
+            } catch (e) {
+                render Error: e
+            }
+        } else {
+            render status: NOT_FOUND
+        }
     }
     Map getParametros() {
         def parameters = JSON.parse(request.getReader()) as Map
