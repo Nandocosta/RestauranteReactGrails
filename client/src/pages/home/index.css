@@ -1,6 +1,49 @@
-.container-home{
-    margin: 80px auto;
+@import '~antd/dist/antd.css';
+
+.style-sider-menu{
+    margin-top: 24px;
+}
+
+.style-menu{
+    margin-top: 50px;
+}
+
+.site-layout-body .site-layout-background {
+    background: #fff;
+    margin: 24px 16px;
+    padding: 24px;
+    height: 380px;
+}
+
+.site-layout-header{
+    background: #fff;
+    margin: 24px 16px;
+    padding: 24px;
+    height: 150px;
+}
+.seach-container{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 740px;
+    margin:40px 0;
+}
+.input-search, input[type=text]{
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    height: 40px;
+    outline: 0;
+}
+
+.input-searh-button{
+    width: 50px;
+    height: 40px;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(103, 200, 230);
 }
