@@ -19,9 +19,7 @@ function Home () {
 
     return (
         <>
-            <div>
-                <Body/>
-            </div>
+            <Body/>
         </>
     );
 }

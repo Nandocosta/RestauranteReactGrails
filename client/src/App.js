@@ -3,9 +3,7 @@ import RoutesApp from "./routes";
 
 function App(){
     return (
-        <div>
-            <RoutesApp />
-        </div>
+        <RoutesApp />
     )
 }
 export default App;

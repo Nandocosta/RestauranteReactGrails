@@ -1,5 +1,5 @@
-import { Table } from 'antd';
 import React from 'react';
+import { Table } from 'antd';
 
 export default function Tabela ({columns, data, onChange}) {
 

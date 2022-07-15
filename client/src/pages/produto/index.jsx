@@ -1,21 +1,47 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+
+import Body from "../../components/body";
 import Tabela from "../../components/tabela";
-import {Table} from "antd";
+import Api from "../../services/Api";
+import Auth from "../../security/Auth";
+import {Button, notification } from "antd";
 
 const Produto = () => {
 
-    const data = [
-        {
-            "id": 39,
-            "preco": 5.0,
-            "nome": "Coxinha"
-        },
-        {
-            "id": 44,
-            "preco": 26.0,
-            "nome": "Arroz"
-        }
-    ]
+    const [ produtos, setProdutos ] = useState([])
+
+    useEffect(() => {
+        Api
+            .get("produto", {
+                headers: {
+                    'Authorization': `Bearer ${Auth.getToken()}`
+                }
+            })
+            .then((respond)=>{
+                const { data:{ listaDeProdutos } } = respond
+                setProdutos(listaDeProdutos)
+            })
+            .catch(console.log)
+    },[])
+
+    const deleteProduto = (produto) => {
+        console.log(produto)
+      Api.delete(`produto/${produto.id}`, {
+              headers: {
+                  'Authorization': `Bearer ${Auth.getToken()}`
+              }
+          })
+          .then(()=>{
+              notification["success"]({
+                  message: 'Produto deletado'
+              });
+          })
+          .catch(()=>{
+              notification["error"]({
+                  message: 'Erro ao tentar deletar produto'
+              });
+          })
+    }
 
     const columns = [
         {
@@ -32,14 +58,27 @@ const Produto = () => {
             title: 'Action',
             dataIndex: '',
             key: 'x',
-            render: () => <a>Delete</a>,
+            render: (_,row) => {
+                return (
+                    <>
+                        <Button onClick={()=>deleteProduto(row)} >Excluir</Button>
+                        <Button >Editar</Button>
+                    </>
+                )
+            },
         },
+        {
+            title: <Button >Adcionar Produto</Button>
+        }
+
     ];
 
     return(
         <>
-            <Tabela data={data} columns={columns}/>
-
+            <Body>
+                <Tabela data={produtos} columns={columns} />
+            </Body>
+            {/*<Tabela />*/}
         </>
     )
 

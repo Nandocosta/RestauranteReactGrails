@@ -1,7 +1,5 @@
 import React from 'react'
 
-import './index.css'
-
 import {
     HomeOutlined,
     UserOutlined,
@@ -9,10 +7,14 @@ import {
     SearchOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
+import 'antd/dist/antd.css';
+
+import './index.css';
+import Tabela from "../tabela";
 
 const { Header, Sider, Content } = Layout;
 
-export default function Body() {
+export default function Body( {children} ) {
     return(
         <div>
             <Layout >
@@ -52,7 +54,7 @@ export default function Body() {
                         </div>
                     </Header>
                     <Content className="site-layout-background" >
-
+                        {children}
                     </Content>
                 </Layout>
             </Layout>
