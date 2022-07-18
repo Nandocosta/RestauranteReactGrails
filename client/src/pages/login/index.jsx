@@ -22,7 +22,7 @@ const Login = () => {
         Api.post("login", {username, password} ).then( response => {
             const { data } = response
             Auth.setAuth(data)
-            window.location.assign('/')
+            window.location.assign('/home')
         })
     };
 

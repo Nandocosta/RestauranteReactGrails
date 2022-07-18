@@ -10,11 +10,17 @@ import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 
 import './index.css';
-import Tabela from "../tabela";
+import {Link} from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
-export default function Body( {children} ) {
+export default function Body( {children, telaSelected} ) {
+
+    const enumSelecteds = {
+        Home: "1",
+        Produtos: "2",
+        Usuario: "3",
+    }
     return(
         <div>
             <Layout >
@@ -24,25 +30,17 @@ export default function Body( {children} ) {
                         className="style-menu"
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={['1']}
-                        items={[
-                            {
-                                key: '1',
-                                icon: <HomeOutlined />,
-                                label: 'Home',
-                            },
-                            {
-                                key: '2',
-                                icon: <ShopOutlined />,
-                                label: 'Produtos',
-                            },
-                            {
-                                key: '3',
-                                icon: <UserOutlined/>,
-                                label: 'Usuario',
-                            },
-                        ]}
-                    />
+                        defaultSelectedKeys={[enumSelecteds[telaSelected]]}>
+                        <Menu.Item key="1" icon={<HomeOutlined/>}>
+                            <Link to="/home"> Home </Link>
+                        </Menu.Item>
+                        <Menu.Item key="2" icon={<ShopOutlined/>}>
+                            <Link to="/produto"> Produtos </Link>
+                        </Menu.Item>
+                        <Menu.Item key="3" icon={<UserOutlined/>}>
+                            <Link to="/usuario"> Usuario </Link>
+                        </Menu.Item>
+                    </Menu>
                 </Sider>
                 <Layout className="site-layout-body">
                     <Header className="site-layout-header">

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
+import "./index.css"
+
 import Body from "../../components/body";
 import Tabela from "../../components/tabela";
 import Api from "../../services/Api";
 import Auth from "../../security/Auth";
-import {Button, notification } from "antd";
+import {Button, Col, notification, Row} from "antd";
 
 const Produto = () => {
 
@@ -67,18 +69,18 @@ const Produto = () => {
                 )
             },
         },
-        {
-            title: <Button >Adcionar Produto</Button>
-        }
-
     ];
 
     return(
         <>
             <Body>
+                <Row justify={'end'} style={{marginBottom:"20px"}}>
+                    <Col>
+                        <Button >Adcionar Produto</Button>
+                    </Col>
+                </Row>
                 <Tabela data={produtos} columns={columns} />
             </Body>
-            {/*<Tabela />*/}
         </>
     )
 

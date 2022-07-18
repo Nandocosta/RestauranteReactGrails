@@ -19,7 +19,9 @@ function Home () {
 
     return (
         <>
-            <Body/>
+            <Body>
+
+            </Body>
         </>
     );
 }
