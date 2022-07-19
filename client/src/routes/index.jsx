@@ -13,8 +13,7 @@ const RoutesApp = () => {
        <Router>
            <Switch>
                <Route exact path="/login" component={Login} />
-               <Route exact path="/cadastrar" component={Cadastrar} />
-               <PrivateRouter exact path="/home">
+               <PrivateRouter exact path="/">
                    <Home/>
                </PrivateRouter>
                <PrivateRouter exact path="/produto" >

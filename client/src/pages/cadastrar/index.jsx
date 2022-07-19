@@ -1,12 +1,35 @@
 import React from 'react'
 
-import {Button, Form, Input} from 'antd'
+import {Button, Form, Input, message, Select} from 'antd'
 import {Link} from "react-router-dom";
 
 import './index.css'
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import Api from "../../services/Api";
+import {Option} from "antd/es/mentions";
 
 const Cadastrar = () => {
+
+
+    const onFinish = (values) => {
+
+        const {username, password, confimarPassword} = values
+
+        if(password !== confimarPassword) {
+            message.error('Senhas diferentes');
+        } else {
+            Api.post('usuario',{username, password},{
+                'Content-Type': 'application/json'
+            })
+                .then(() =>{
+                    window.location = "/login"
+                })
+                .catch(e =>{console.log("falha no Cadastro")})
+        }
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
     return(
         <>
@@ -16,8 +39,8 @@ const Cadastrar = () => {
                     initialValues={{
                         remember: true,
                     }}
-                    onFinish
-                    onFinishFailed
+                    onFinish = {onFinish}
+                    onFinishFailed = {onFinishFailed}
                 >
                     <Form.Item
                         name="username"
@@ -33,6 +56,21 @@ const Cadastrar = () => {
                             className='imput-item'
                             placeholder="Usuario"
                         />
+                    </Form.Item>
+                    <br/>
+                    <Form.Item
+                        name="Permissao"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Select defaultValue="Option2-1">
+                            <Option value="Option2-1">Usuario</Option>
+                            <Option value="Option2-2">Administrador</Option>
+                        </Select>
+
                     </Form.Item>
                     <br/>
                     <Form.Item
@@ -70,7 +108,7 @@ const Cadastrar = () => {
                         <Button  className='Button-login'  type="primary" htmlType="submit">
                             Registrar
                         </Button><br/>
-                        <Link to='/login' >Já tenho uma conta? clique aqui</Link>
+                        <Link to='/' >Já tenho uma conta? clique aqui</Link>
                     </Form.Item>
 
                 </Form>

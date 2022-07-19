@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Api from "../../services/Api";
 import Auth from "../../security/Auth";
 import Body from "../../components/body";
+import Tabela from "../../components/tabela";
 
 function Home () {
+
+    const [ produtos, setProdutos ] = useState([])
 
     useEffect(() => {
         Api
@@ -13,14 +16,30 @@ function Home () {
                     'Authorization': `Bearer ${Auth.getToken()}`
                 }
             })
-            .then(console.log)
+            .then((respond)=>{
+                const { data:{ listaDeProdutos } } = respond
+                setProdutos(listaDeProdutos)
+            })
             .catch(console.log)
+
     })
+    const columns = [
+        {
+            title: 'Nome',
+            dataIndex: 'nome',
+            key: 'nome',
+        },
+        {
+            title: 'Preço',
+            dataIndex: 'preco',
+            key: 'preco',
+        },
+    ];
 
     return (
         <>
             <Body>
-
+                <Tabela data={produtos} columns={columns}/>
             </Body>
         </>
     );

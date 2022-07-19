@@ -22,7 +22,7 @@ const Login = () => {
         Api.post("login", {username, password} ).then( response => {
             const { data } = response
             Auth.setAuth(data)
-            window.location.assign('/home')
+            window.location.assign('/')
         })
     };
 
@@ -49,7 +49,7 @@ const Login = () => {
                     >
                         <Input
                             prefix={<UserOutlined className="site-form-item-icon" />}
-                            placeholder="Username"
+                            placeholder="Usuario"
                             onChange={ e => setUsername(e.target.value)} value={username}
                         />
                     </Form.Item>
@@ -74,8 +74,6 @@ const Login = () => {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             Login
                         </Button>
-                        <br/>
-                        <Link to='/cadastrar' className='cadastro'> Cadastre-se</Link>
                     </Form.Item>
                 </Form>
             </div>
