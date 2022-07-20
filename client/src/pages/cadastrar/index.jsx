@@ -3,7 +3,6 @@ import React from 'react'
 import {Button, Form, Input, message, Select} from 'antd'
 import {Link} from "react-router-dom";
 
-import './index.css'
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import Api from "../../services/Api";
 import {Option} from "antd/es/mentions";
