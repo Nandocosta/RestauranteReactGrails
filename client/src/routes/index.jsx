@@ -18,7 +18,10 @@ export default function RoutesApp(){
                <PrivateRouter exact path="/produto" >
                    <Produto/>
                </PrivateRouter>
-               <Router exact path="/usuario" component={Usuario}/>
+               <PrivateRouter exact path="/usuario">
+                   <Usuario/>
+               </PrivateRouter>
+
            </Switch>
        </Router>
     )

@@ -1,8 +1,10 @@
 import React from 'react'
 
 import Body from "../../components/body";
+import FormUser from "../../components/formUser";
 
 function Usuario(){
+
 
   return (
       <>
@@ -10,6 +12,7 @@ function Usuario(){
               <div>
                   <h1>Criar Usuario</h1>
               </div>
+              <FormUser />
           </Body>
       </>
   )
