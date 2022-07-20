@@ -4,7 +4,6 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
 import './index.css'
-import {Link} from "react-router-dom";
 import Api from "../../services/Api";
 import Auth from "../../security/Auth"
 

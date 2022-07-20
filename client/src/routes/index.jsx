@@ -3,12 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Home from "../pages/home";
 import Login from "../pages/login";
-import Cadastrar from "../pages/cadastrar";
 import Produto from "../pages/produto";
+import Usuario from "../pages/usuario";
 import PrivateRouter from "../components/privateRouter";
 
-
-const RoutesApp = () => {
+export default function RoutesApp(){
     return (
        <Router>
            <Switch>
@@ -19,8 +18,11 @@ const RoutesApp = () => {
                <PrivateRouter exact path="/produto" >
                    <Produto/>
                </PrivateRouter>
+               <PrivateRouter exact path="/usuario">
+                   <Usuario/>
+               </PrivateRouter>
+
            </Switch>
        </Router>
     )
 }
-export default RoutesApp;

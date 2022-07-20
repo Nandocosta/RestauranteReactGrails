@@ -32,7 +32,7 @@ export default function Body( {children, telaSelected} ) {
                         mode="inline"
                         defaultSelectedKeys={[enumSelecteds[telaSelected]]}>
                         <Menu.Item key="1" icon={<HomeOutlined/>}>
-                            <Link to="/home"> Home </Link>
+                            <Link to="/"> Home </Link>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<ShopOutlined/>}>
                             <Link to="/produto"> Produtos </Link>
