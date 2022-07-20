@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Col, Form, Input, Row} from "antd";
 
-export default function FormUser(){
+export default function FormUser(values){
+    const [username, setUserName ]= useState()
+    const [permissao, setPermissao]= useState()
+    const [password, setPassword ]= useState()
+
   return(
       <>
           <Form
@@ -9,13 +13,14 @@ export default function FormUser(){
               initialValues={{
                   remember: true,
               }}
+              onFinish={values}
           >
 
               <Row gutter={ 18 }>
                   <Col className="gutter-row" span={12} >
                       <Form.Item
                           label="Nome"
-                          name="nome"
+                          name="username"
                           rules={[
                               {
                                   required: true,
@@ -23,7 +28,7 @@ export default function FormUser(){
                               },
                           ]}
                       >
-                          <Input className='imput-item' />
+                          <Input className='imput-item' onChange={ e => setUsername(e.target.value)} value={username}/>
                       </Form.Item>
                   </Col>
                   <Col className="gutter-row" span={12} >
