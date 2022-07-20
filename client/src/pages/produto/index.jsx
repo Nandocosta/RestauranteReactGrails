@@ -56,6 +56,7 @@ const Produto = () => {
             .catch()
     };
     const editarProduto = (values) => {
+        console.log(values)
         Api.put(`produto/${values.id}`, values,{
             headers: {
                 'Authorization': `Bearer ${Auth.getToken()}`
@@ -68,11 +69,11 @@ const Produto = () => {
                 getProdutos()
                 setIsModalVisibleAdd(false)
             })
-            .catch(()=>{
-                    notification["error"]({
-                        message: 'Erro ao tentar editar produto'
-                    });
-                })
+            // .catch(()=>{
+            //         notification["error"]({
+            //             message: 'Erro ao tentar editar produto'
+            //         });
+            //     })
     };
 
 
@@ -90,7 +91,8 @@ const Produto = () => {
           .then(()=>{
               notification["success"]({
                   message: 'Produto deletado'
-              });
+              })
+              getProdutos()
           })
           .catch(()=>{
               notification["error"]({
@@ -128,6 +130,9 @@ const Produto = () => {
     return(
         <>
             <Body>
+                <div>
+                    <h2>Gerenciamento de Produtos</h2>
+                </div>
                 <Row justify={'end'} style={{marginBottom:"20px"}}>
                     <Col>
                         <Button onClick={()=> setIsModalVisibleAdd(true)} >Adicionar Produto</Button>
@@ -144,6 +149,12 @@ const Produto = () => {
                         <input />
                     </Form.Item>
                     <Form.Item
+                        name="id"
+                        hidden
+                    >
+                        <input />
+                    </Form.Item>
+                    <Form.Item
                         name="preco"
                         label="Preço"
                     >
@@ -151,7 +162,7 @@ const Produto = () => {
                     </Form.Item>
                 </Form>
             </Modal>
-            <Modal title="Adicionar Produto" visible={isModalVisibleAdd} onOk={()=>form.submit()} onCancel={()=> isModalVisibleAdd(false)}>
+            <Modal title="Adicionar Produto" visible={isModalVisibleAdd} onOk={()=>form.submit()} onCancel={()=> setIsModalVisibleAdd(false)}>
                 <Form form={form} onFinish={adicionarProduto}>
                     <Form.Item
                         name="nome"
@@ -169,6 +180,5 @@ const Produto = () => {
             </Modal>
         </>
     )
-
 }
 export default Produto

@@ -21,12 +21,16 @@ class UsuarioController {
     @Transactional
     def save( ) {
         params.putAll(getParametros())
-        Permissao permissao = Permissao.findByAuthority( params.permissao)
+//        Permissao permissao = Permissao.findByAuthority( params.permissoes)
+        List<Permissao> permissoes = []
         Usuario usuario =  Usuario.findByUsername( params.username)
-        if( permissao == null) {
-            respond status: BAD_REQUEST, message: "Permissão não existe"
-            return
+        params.permissoes.each{
+            Permissao permissao = Permissao.findByAuthority( it as String )
+            if (permissao){
+                permissoes.add(permissao)
+            }
         }
+
         if( usuario == null ) {
             try {
                 usuario = new Usuario(
@@ -44,12 +48,14 @@ class UsuarioController {
                     return
                 }
 
-                if (UsuarioPermissao.findByUsuarioAndPermissao(usuario, permissao) == null){
-                    new UsuarioPermissao(usuario: usuario, permissao: permissao).save(flush:true)
-                } else {
-                    respond status: 400, message: "Usuario com essa permissão já existe"
-                    return
-                }
+               permissoes.each{
+                   if (UsuarioPermissao.findByUsuarioAndPermissao(usuario, it) == null){
+                       new UsuarioPermissao(usuario: usuario, permissao: it).save(flush:true)
+                   } else {
+                       respond status: 400, message: "Usuario com essa permissão já existe"
+                       return
+                   }
+               }
                 respond status: 201, usuario: usuario
                 return
 

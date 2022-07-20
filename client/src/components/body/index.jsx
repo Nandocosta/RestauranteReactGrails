@@ -43,14 +43,14 @@ export default function Body( {children, telaSelected} ) {
                     </Menu>
                 </Sider>
                 <Layout className="site-layout-body">
-                    <Header className="site-layout-header">
-                        <div className='seach-container'>
-                            <input className='input-search' type="text" name='search'/>
-                            <button className='input-searh-button'>
-                                <SearchOutlined />
-                            </button>
-                        </div>
-                    </Header>
+                    {/*<Header className="site-layout-header">*/}
+                    {/*    <div className='seach-container'>*/}
+                    {/*        <input className='input-search' type="text" name='search'/>*/}
+                    {/*        <button className='input-searh-button'>*/}
+                    {/*            <SearchOutlined />*/}
+                    {/*        </button>*/}
+                    {/*    </div>*/}
+                    {/*</Header>*/}
                     <Content className="site-layout-background" >
                         {children}
                     </Content>
