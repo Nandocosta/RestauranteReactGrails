@@ -12,12 +12,14 @@ import {Button, Col, Form, Modal, notification, Row} from "antd";
 const Produto = () => {
 
     const [ produtos, setProdutos ] = useState([])
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
+    const [ isModalVisible, setIsModalVisible] = useState(false);
+    const [ isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
+    const [ idProduto, setIdProduto ] = useState(null)
     const [form] = Form.useForm()
     const showModalEdit = (values) => {
         form.setFieldsValue(values)
         setIsModalVisible(true)
+        setIdProduto(values.id)
     };
     const handleOk = () => {
         setIsModalVisible(false);
@@ -52,12 +54,13 @@ const Produto = () => {
                 })
                 getProdutos()
                 setIsModalVisibleAdd(false)
+                form.resetFields()
             })
             .catch()
     };
     const editarProduto = (values) => {
         console.log(values)
-        Api.put(`produto/${values.id}`, values,{
+        Api.put(`produto/${idProduto}`, values,{
             headers: {
                 'Authorization': `Bearer ${Auth.getToken()}`
             }
@@ -67,13 +70,15 @@ const Produto = () => {
                     message: 'Produto editado'
                 })
                 getProdutos()
-                setIsModalVisibleAdd(false)
+                setIsModalVisible(false)
             })
-            // .catch(()=>{
-            //         notification["error"]({
-            //             message: 'Erro ao tentar editar produto'
-            //         });
-            //     })
+            .catch(()=>{
+                notification["error"]({
+                    message: 'Erro ao tentar editar produto'
+                });
+            })
+        setIdProduto(null)
+        form.resetFields()
     };
 
 
@@ -145,12 +150,6 @@ const Produto = () => {
                     <Form.Item
                         name="nome"
                         label="Nome"
-                    >
-                        <input />
-                    </Form.Item>
-                    <Form.Item
-                        name="id"
-                        hidden
                     >
                         <input />
                     </Form.Item>

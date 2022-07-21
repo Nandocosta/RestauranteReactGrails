@@ -1,16 +1,25 @@
 
+.style-layaut{
+    margin: 0 auto;
+    min-height: 840px;
+}
 
 .style-sider-menu{
     margin-top: 24px;
+    height:740px;
 }
 
 .style-menu{
     margin-top: 50px;
+    height: 100%;
 }
 
+.style-logout{
+    margin: 40px 40px;
+}
 .site-layout-body .site-layout-background {
     background: #fff;
-    margin: 24px 16px;
+    margin: 24px 16px 10px ;
     padding: 24px;
     height: 380px;
 }

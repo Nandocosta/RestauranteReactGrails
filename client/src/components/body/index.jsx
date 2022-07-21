@@ -11,18 +11,29 @@ import 'antd/dist/antd.css';
 
 import './index.css';
 import {Link} from "react-router-dom";
+import Auth from "../../security/Auth";
 
 const { Header, Sider, Content } = Layout;
 
 export default function Body( {children, telaSelected} ) {
 
+    const isAdmin = function () {
+        const rules = Auth.getRules()
+        return Array.isArray(rules) && rules.includes('ROLE_ADMIN');
+    }
+    const logout = function (){
+
+    }
+
     const enumSelecteds = {
         Home: "1",
         Produtos: "2",
         Usuario: "3",
+        logout: "4",
     }
+
     return(
-        <div>
+        <div className="style-layaut">
             <Layout >
                 <Sider className="style-sider-menu" >
                     <div className="logo" />
@@ -37,10 +48,14 @@ export default function Body( {children, telaSelected} ) {
                         <Menu.Item key="2" icon={<ShopOutlined/>}>
                             <Link to="/produto"> Produtos </Link>
                         </Menu.Item>
-                        <Menu.Item key="3" icon={<UserOutlined/>}>
+                        <Menu.Item disabled={!isAdmin()} key="3" icon={<UserOutlined/>}>
                             <Link to="/usuario"> Usuario </Link>
                         </Menu.Item>
+                        <Menu.Item key = "4" >
+                            <a>Sair</a>
+                        </Menu.Item>
                     </Menu>
+
                 </Sider>
                 <Layout className="site-layout-body">
                     {/*<Header className="site-layout-header">*/}

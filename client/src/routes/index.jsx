@@ -18,7 +18,7 @@ export default function RoutesApp(){
                <PrivateRouter exact path="/produto" >
                    <Produto/>
                </PrivateRouter>
-               <PrivateRouter exact path="/usuario">
+               <PrivateRouter  exact path="/usuario" admin>
                    <Usuario/>
                </PrivateRouter>
 

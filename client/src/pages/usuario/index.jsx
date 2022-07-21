@@ -14,6 +14,7 @@ function Usuario(){
     const [usuarios, setUsuarios ] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
+    const [ idUsuario, setIdUsuario] = useState(null)
     const [form] = Form.useForm()
     const labelPermissoes = {
         ROLE_ADMIN: 'administrador',
@@ -22,6 +23,7 @@ function Usuario(){
     const showModalEdit = (values) => {
         form.setFieldsValue(values)
         setIsModalVisible(true)
+        setIdUsuario(values.id)
     };
     const handleOk = () => {
         setIsModalVisible(false);
@@ -52,7 +54,7 @@ function Usuario(){
             message.error('Senhas diferentes');
         }
 
-        Api.put(`usuario/${values.id}`, values,{
+        Api.put(`usuario/${idUsuario}`, values,{
             headers: {
                 'Authorization': `Bearer ${Auth.getToken()}`
             }
@@ -69,6 +71,8 @@ function Usuario(){
                     message: 'Erro ao tentar editar usuario'
                 });
             })
+        setIdUsuario(null)
+        form.resetFields()
     };
 
     useEffect(() => {
@@ -102,6 +106,26 @@ function Usuario(){
                 });
             })
     }
+    const deleteUsuario = (usuarios) => {
+        console.log(usuarios)
+        Api.delete(`usuario/${usuarios.id}`, {
+            headers: {
+                'Authorization': `Bearer ${Auth.getToken()}`
+            }
+        })
+            .then(()=>{
+                notification["success"]({
+                    message: 'Usuario deletado'
+                })
+                getUsuarios()
+            })
+            .catch(()=>{
+                notification["error"]({
+                    message: 'Erro ao tentar deletar usuario'
+                });
+            })
+    }
+
     const columns = [
         {
             title: 'Nome',
@@ -126,7 +150,7 @@ function Usuario(){
             render: (_,row) => {
                 return (
                     <>
-                        <Button >Excluir</Button>
+                        <Button onClick={()=>deleteUsuario(row)}>Excluir</Button>
                         <Button onClick={()=>showModalEdit(row)}>Editar</Button>
                     </>
                 )

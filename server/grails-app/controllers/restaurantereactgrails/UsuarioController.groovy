@@ -90,7 +90,7 @@ class UsuarioController {
         List permissoes = params.permissoes
         List<Permissao> newPermissoes = []
         permissoes?.each{
-            Permissao permissao = Permissao.findByAuthority(it)
+            Permissao permissao = Permissao.findByAuthority(it as String)
             if(permissao){
                 newPermissoes.add(permissao)
             }
